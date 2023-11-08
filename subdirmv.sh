@@ -1,15 +1,21 @@
 #!/bin/bash
 
-dir="1"
+shopt -s dotglob
 
-for file in "$dir"/*;do
+dir=$1
+
+for file in "$dir"/*{0001..1000}.txt; do
 	if [[ -f "$file" ]]; then
-		date=$(<"$file")
+		date=$(cat "$file")
+		year=$(echo $date | cut -d'/' -f3)
+    		month=$(echo $date | cut -d'/' -f2)
+    		day=$(echo $date | cut -d'/' -f1)
 
-		destination_dir=$(date -d "$date" +"%Y/%m/%d")
-
-		mkdir -p "$destination_dir"
-
-		mv "$file" "$destination_dir/"
+    		dest_dir="$dir/$year/$month/$day"
+    
+    		mkdir -p $dest_dir
+   		mv $file $dest_dir/
 	fi
 done
+
+shopt -u dotglob
