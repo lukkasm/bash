@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#This script list files in actual directory without any parameters
+#If it's there -a parameter, script shows hidden files
+#Or script can list any other written directories
+
 dir="."
 
 
